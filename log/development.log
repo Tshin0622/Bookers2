@@ -1,0 +1,549 @@
+  [1m[35m (1.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (9.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (5.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20230123133043)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230123133043"]]
+  [1m[36mTRANSACTION (6.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateActiveStorageTables (20230123133459)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "filename" varchar NOT NULL, "content_type" varchar, "metadata" text, "service_name" varchar NOT NULL, "byte_size" bigint NOT NULL, "checksum" varchar NOT NULL, "created_at" datetime NOT NULL)[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "record_type" varchar NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" datetime NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "blob_id" bigint NOT NULL, "variation_digest" varchar NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230123133459"]]
+  [1m[36mTRANSACTION (6.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateBooks (20230123134925)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "books" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "body" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230123134925"]]
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddIntroductionToUser (20230123143234)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "introduction" text[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230123143234"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddProfileImageToUser (20230123143333)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "profile_image" text[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230123143333"]]
+  [1m[36mTRANSACTION (6.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddUserIdToBook (20230123145550)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "books" ADD "user_id" integer[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20230123145550"]]
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-01-24 09:56:48.062942"], ["updated_at", "2023-01-24 09:56:48.062942"]]
+  [1m[36mTRANSACTION (3.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 180.28.92.191 at 2023-01-24 09:56:59 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomesController#top as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering homes/top.html.erb within layouts/application
+  Rendered homes/top.html.erb within layouts/application (Duration: 1.8ms | Allocations: 553)
+[Webpacker] Compiling...
+Started GET "/" for 180.28.92.191 at 2023-01-24 09:57:00 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by HomesController#top as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering homes/top.html.erb within layouts/application
+  Rendered homes/top.html.erb within layouts/application (Duration: 0.2ms | Allocations: 50)
+[Webpacker] Compiling...
+[Webpacker] Compiled all packs in /home/ec2-user/environment/bookers2/public/packs
+[Webpacker] warning ../../package.json: No license field
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2) or calc($spacer / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+302 │ $headings-margin-bottom:      $spacer / 2 !default;
+    │                               ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 302:31  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($input-padding-y, 2) or calc($input-padding-y / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+498 │ $input-height-inner-quarter:            add($input-line-height * .25em, $input-padding-y / 2) !default;
+    │                                                                         ^^^^^^^^^^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 498:73  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($custom-control-indicator-size, 2) or calc($custom-control-indicator-size / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+568 │ $custom-switch-indicator-border-radius:         $custom-control-indicator-size / 2 !default;
+    │                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 568:49  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2) or calc($spacer / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+713 │ $nav-divider-margin-y:              $spacer / 2 !default;
+    │                                     ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 713:37  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2) or calc($spacer / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+718 │ $navbar-padding-y:                  $spacer / 2 !default;
+    │                                     ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 718:37  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+WARNING: 67 repetitive deprecation warnings omitted.
+
+
+[Webpacker] Hash: 301ddb0af75537bbb47b
+Version: webpack 4.46.0
+Time: 19714ms
+Built at: 01/24/2023 9:57:21 AM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-3c095ec56ad8fbbdf385.js   3.31 MiB  application  [emitted] [immutable]  application
+js/application-3c095ec56ad8fbbdf385.js.map   3.48 MiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-3c095ec56ad8fbbdf385.js js/application-3c095ec56ad8fbbdf385.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 634 bytes {application} [built]
+[./app/javascript/stylesheets/application.scss] 664 bytes {application} [built]
+[./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./app/javascript/stylesheets/application.scss] ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/stylesheets/application.scss 1.01 MiB {application} [built]
+[./node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 861 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 553 bytes {application} [built]
+    + 122 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 21411.7ms | Allocations: 11431)
+Completed 200 OK in 21435ms (Views: 21417.8ms | ActiveRecord: 0.0ms | Allocations: 16802)
+
+
+[Webpacker] Compiled all packs in /home/ec2-user/environment/bookers2/public/packs
+[Webpacker] warning ../../package.json: No license field
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2) or calc($spacer / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+302 │ $headings-margin-bottom:      $spacer / 2 !default;
+    │                               ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 302:31  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($input-padding-y, 2) or calc($input-padding-y / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+498 │ $input-height-inner-quarter:            add($input-line-height * .25em, $input-padding-y / 2) !default;
+    │                                                                         ^^^^^^^^^^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 498:73  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($custom-control-indicator-size, 2) or calc($custom-control-indicator-size / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+568 │ $custom-switch-indicator-border-radius:         $custom-control-indicator-size / 2 !default;
+    │                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 568:49  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2) or calc($spacer / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+713 │ $nav-divider-margin-y:              $spacer / 2 !default;
+    │                                     ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 713:37  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+DEPRECATION WARNING: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($spacer, 2) or calc($spacer / 2)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+    ╷
+718 │ $navbar-padding-y:                  $spacer / 2 !default;
+    │                                     ^^^^^^^^^^^
+    ╵
+    node_modules/bootstrap/scss/_variables.scss 718:37  @import
+    node_modules/bootstrap/scss/bootstrap.scss 9:9      @import
+    app/javascript/stylesheets/application.scss 1:9     root stylesheet
+
+WARNING: 67 repetitive deprecation warnings omitted.
+
+
+[Webpacker] Hash: 301ddb0af75537bbb47b
+Version: webpack 4.46.0
+Time: 18740ms
+Built at: 01/24/2023 9:57:21 AM
+                                     Asset       Size       Chunks                         Chunk Names
+    js/application-3c095ec56ad8fbbdf385.js   3.31 MiB  application  [emitted] [immutable]  application
+js/application-3c095ec56ad8fbbdf385.js.map   3.48 MiB  application  [emitted] [dev]        application
+                             manifest.json  364 bytes               [emitted]              
+Entrypoint application = js/application-3c095ec56ad8fbbdf385.js js/application-3c095ec56ad8fbbdf385.js.map
+[./app/javascript/channels sync recursive _channel\.js$] ./app/javascript/channels sync _channel\.js$ 160 bytes {application} [built]
+[./app/javascript/channels/index.js] 211 bytes {application} [built]
+[./app/javascript/packs/application.js] 634 bytes {application} [built]
+[./app/javascript/stylesheets/application.scss] 664 bytes {application} [built]
+[./node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./app/javascript/stylesheets/application.scss] ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/sass-loader/dist/cjs.js??ref--6-3!./app/javascript/stylesheets/application.scss 1.01 MiB {application} [built]
+[./node_modules/webpack/buildin/global.js] (webpack)/buildin/global.js 861 bytes {application} [built]
+[./node_modules/webpack/buildin/module.js] (webpack)/buildin/module.js 553 bytes {application} [built]
+    + 122 hidden modules
+
+  Rendered layout layouts/application.html.erb (Duration: 20799.2ms | Allocations: 5330)
+Completed 200 OK in 20803ms (Views: 20800.8ms | ActiveRecord: 0.0ms | Allocations: 8501)
+
+
+Started GET "/users/sign_up" for 180.28.92.191 at 2023-01-24 09:57:27 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 0.6ms | Allocations: 247)
+  Rendered devise/shared/_links.html.erb (Duration: 2.7ms | Allocations: 1056)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 21.8ms | Allocations: 8097)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 26.7ms | Allocations: 9999)
+Completed 200 OK in 52ms (Views: 29.0ms | ActiveRecord: 0.7ms | Allocations: 18097)
+
+
+Started POST "/users" for 180.28.92.191 at 2023-01-24 09:57:36 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"tanaka", "email"=>"shin.2001001@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "shin.2001001@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."name" = ? LIMIT ?[0m  [["name", "tanaka"], ["LIMIT", 1]]
+  [1m[36mUser Create (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "name", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["email", "shin.2001001@gmail.com"], ["encrypted_password", "$2a$12$ePOH5WiWDZvedw3pY30Koe49QAWOJoQfcfMCtw/c1GaU5AXyc5Ujm"], ["name", "tanaka"], ["created_at", "2023-01-24 09:57:36.913176"], ["updated_at", "2023-01-24 09:57:36.913176"]]
+  [1m[36mTRANSACTION (7.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to https://685f926fd70944c28ee3f7307ba6b5d4.vfs.cloud9.us-east-1.amazonaws.com/users/1
+Completed 302 Found in 281ms (ActiveRecord: 8.2ms | Allocations: 14463)
+
+
+Started GET "/users/1" for 180.28.92.191 at 2023-01-24 09:57:37 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:16:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "profile_image"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:16:in `get_profile_image'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/user.rb:18:in `get_profile_image'
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."name" = ? AND "users"."id" != ? LIMIT ?[0m  [["name", "tanaka"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:18:in `get_profile_image'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "profile_image"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:18:in `get_profile_image'
+  [1m[36mActiveStorage::Blob Create (17.3ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["key", "1b4jqxxvgev3inba1rvi2odo66ge"], ["filename", "default-image.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 88619], ["checksum", "wZk6UtpgqodZUzYN0c93/w=="], ["created_at", "2023-01-24 09:57:37.385619"]]
+  ↳ app/models/user.rb:18:in `get_profile_image'
+  [1m[36mActiveStorage::Attachment Create (3.7ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "profile_image"], ["record_type", "User"], ["record_id", 1], ["blob_id", 1], ["created_at", "2023-01-24 09:57:37.410285"]]
+  ↳ app/models/user.rb:18:in `get_profile_image'
+  [1m[36mUser Update (1.0ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = ? WHERE "users"."id" = ?[0m  [["updated_at", "2023-01-24 09:57:37.420884"], ["id", 1]]
+  ↳ app/models/user.rb:18:in `get_profile_image'
+  [1m[36mTRANSACTION (9.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/models/user.rb:18:in `get_profile_image'
+[36m  Disk Storage (0.5ms) [0m[32mUploaded file to key: 1b4jqxxvgev3inba1rvi2odo66ge (checksum: wZk6UtpgqodZUzYN0c93/w==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: fd686ad8-4bba-4ce6-84a8-74a07a3be1b8) to Async(default) with arguments: #<GlobalID:0x00007f2b50fd64e8 @uri=#<URI::GID gid://bookers2/ActiveStorage::Blob/1>>
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [fd686ad8-4bba-4ce6-84a8-74a07a3be1b8] Performing ActiveStorage::AnalyzeJob (Job ID: fd686ad8-4bba-4ce6-84a8-74a07a3be1b8) from Async(default) enqueued at 2023-01-24T09:57:37Z with arguments: #<GlobalID:0x00007f2b5478a2e0 @uri=#<URI::GID gid://bookers2/ActiveStorage::Blob/1>>
+[ActiveJob] [ActiveStorage::AnalyzeJob] [fd686ad8-4bba-4ce6-84a8-74a07a3be1b8] [36m  Disk Storage (8.6ms) [0m[34mDownloaded file from key: 1b4jqxxvgev3inba1rvi2odo66ge[0m
+  [1m[36mActiveStorage::VariantRecord Load (0.1ms)[0m  [1m[34mSELECT "active_storage_variant_records".* FROM "active_storage_variant_records" WHERE "active_storage_variant_records"."blob_id" = ? AND "active_storage_variant_records"."variation_digest" = ? LIMIT ?[0m  [["blob_id", 1], ["variation_digest", "58nLvjR5lLpeOdoWw8+s844W40I="], ["LIMIT", 1]]
+  ↳ app/models/user.rb:20:in `get_profile_image'
+[36m  Disk Storage (3.7ms) [0m[34mDownloaded file from key: 1b4jqxxvgev3inba1rvi2odo66ge[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  [1m[36mActiveStorage::VariantRecord Create (10.3ms)[0m  [1m[32mINSERT INTO "active_storage_variant_records" ("blob_id", "variation_digest") VALUES (?, ?)[0m  [["blob_id", 1], ["variation_digest", "58nLvjR5lLpeOdoWw8+s844W40I="]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [fd686ad8-4bba-4ce6-84a8-74a07a3be1b8]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/models/user.rb:20:in `get_profile_image'
+[ActiveJob] [ActiveStorage::AnalyzeJob] [fd686ad8-4bba-4ce6-84a8-74a07a3be1b8]   [1m[36mActiveStorage::Blob Update (5006.0ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = ? WHERE "active_storage_blobs"."id" = ?[0m  [["metadata", "{\"identified\":true,\"width\":333,\"height\":333,\"analyzed\":true}"], ["id", 1]]
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "ActiveStorage::VariantRecord"], ["name", "image"], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [fd686ad8-4bba-4ce6-84a8-74a07a3be1b8]   [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "ActiveStorage::VariantRecord"], ["name", "image"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  [1m[36mActiveStorage::Blob Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["key", "vzm9v5chvdn08nxymbap5jpu3vgk"], ["filename", "default-image.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 31667], ["checksum", "8+IyIe80IW73XYOZgo93lA=="], ["created_at", "2023-01-24 09:57:42.653123"]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [fd686ad8-4bba-4ce6-84a8-74a07a3be1b8] Error performing ActiveStorage::AnalyzeJob (Job ID: fd686ad8-4bba-4ce6-84a8-74a07a3be1b8) from Async(default) in 5139.94ms: ActiveRecord::StatementInvalid (SQLite3::BusyException: database is locked):
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/sqlite3-1.6.0-x86_64-linux/lib/sqlite3/statement.rb:108:in `step'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/sqlite3-1.6.0-x86_64-linux/lib/sqlite3/statement.rb:108:in `block in each'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/sqlite3-1.6.0-x86_64-linux/lib/sqlite3/statement.rb:107:in `loop'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/sqlite3-1.6.0-x86_64-linux/lib/sqlite3/statement.rb:107:in `each'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/sqlite3/database_statements.rb:58:in `to_a'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/sqlite3/database_statements.rb:58:in `block (2 levels) in exec_query'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/dependencies/interlock.rb:48:in `block in permit_concurrent_loads'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/share_lock.rb:187:in `yield_shares'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/dependencies/interlock.rb:47:in `permit_concurrent_loads'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/sqlite3/database_statements.rb:49:in `block in exec_query'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract_adapter.rb:696:in `block (2 levels) in log'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:26:in `block (2 levels) in synchronize'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:25:in `handle_interrupt'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:25:in `block in synchronize'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:21:in `handle_interrupt'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:21:in `synchronize'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract_adapter.rb:695:in `block in log'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract_adapter.rb:687:in `log'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/sqlite3/database_statements.rb:48:in `exec_query'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/sqlite3/database_statements.rb:76:in `exec_delete'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract/database_statements.rb:179:in `update'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract/query_cache.rb:22:in `update'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/persistence.rb:385:in `_update_record'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/persistence.rb:891:in `_update_row'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/locking/optimistic.rb:88:in `_update_row'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/persistence.rb:913:in `_update_record'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/attribute_methods/dirty.rb:195:in `_update_record'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/callbacks.rb:465:in `block in _update_record'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:106:in `run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:824:in `_run_update_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/callbacks.rb:465:in `_update_record'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/timestamp.rb:121:in `_update_record'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/persistence.rb:900:in `create_or_update'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/callbacks.rb:457:in `block in create_or_update'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/autosave_association.rb:385:in `around_save_collection_association'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:137:in `run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:824:in `_run_save_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/callbacks.rb:457:in `create_or_update'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/timestamp.rb:126:in `create_or_update'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/persistence.rb:507:in `save!'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/validations.rb:53:in `save!'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/transactions.rb:302:in `block in save!'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/transactions.rb:354:in `block in with_transaction_returning_status'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract/database_statements.rb:318:in `transaction'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/transactions.rb:350:in `with_transaction_returning_status'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/transactions.rb:302:in `save!'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/suppressor.rb:48:in `save!'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/persistence.rb:639:in `block in update!'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/transactions.rb:354:in `block in with_transaction_returning_status'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract/database_statements.rb:320:in `block in transaction'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract/transaction.rb:319:in `block in within_new_transaction'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:26:in `block (2 levels) in synchronize'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:25:in `handle_interrupt'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:25:in `block in synchronize'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:21:in `handle_interrupt'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/concurrency/load_interlock_aware_monitor.rb:21:in `synchronize'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract/transaction.rb:317:in `within_new_transaction'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/connection_adapters/abstract/database_statements.rb:320:in `transaction'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/transactions.rb:350:in `with_transaction_returning_status'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activerecord-6.1.7.1/lib/active_record/persistence.rb:637:in `update!'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activestorage-6.1.7.1/app/models/active_storage/blob/analyzable.rb:29:in `analyze'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activestorage-6.1.7.1/app/jobs/active_storage/analyze_job.rb:11:in `perform'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/execution.rb:48:in `block in perform_now'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/i18n-1.12.0/lib/i18n.rb:322:in `with_locale'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/translation.rb:9:in `block (2 levels) in <module:Translation>'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `instance_exec'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/core_ext/time/zones.rb:66:in `use_zone'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/timezones.rb:9:in `block (2 levels) in <module:Timezones>'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `instance_exec'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/instrumentation.rb:21:in `block in instrument'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/notifications.rb:203:in `block in instrument'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/notifications.rb:203:in `instrument'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/instrumentation.rb:31:in `instrument'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/instrumentation.rb:14:in `block (2 levels) in <module:Instrumentation>'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `instance_exec'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/logging.rb:22:in `block in tag_logger'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/tagged_logging.rb:99:in `block in tagged'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/tagged_logging.rb:37:in `tagged'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/tagged_logging.rb:99:in `tagged'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/logging.rb:22:in `tag_logger'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/logging.rb:15:in `block (2 levels) in <module:Logging>'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `instance_exec'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:137:in `run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/execution.rb:47:in `perform_now'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/execution.rb:25:in `block in execute'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:117:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/railtie.rb:47:in `block (4 levels) in <class:Railtie>'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/execution_wrapper.rb:91:in `wrap'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/reloader.rb:72:in `block in wrap'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/execution_wrapper.rb:91:in `wrap'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/reloader.rb:71:in `wrap'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/railtie.rb:46:in `block (3 levels) in <class:Railtie>'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `instance_exec'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:126:in `block in run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activesupport-6.1.7.1/lib/active_support/callbacks.rb:137:in `run_callbacks'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/execution.rb:23:in `execute'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/activejob-6.1.7.1/lib/active_job/queue_adapters/async_adapter.rb:70:in `perform'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/concurrent-ruby-1.1.10/lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:352:in `run_task'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/concurrent-ruby-1.1.10/lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:343:in `block (3 levels) in create_worker'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/concurrent-ruby-1.1.10/lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:334:in `loop'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/concurrent-ruby-1.1.10/lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:334:in `block (2 levels) in create_worker'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/concurrent-ruby-1.1.10/lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:333:in `catch'
+/home/ec2-user/.rvm/gems/ruby-3.1.2/gems/concurrent-ruby-1.1.10/lib/concurrent-ruby/concurrent/executor/ruby_thread_pool_executor.rb:333:in `block in create_worker'
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  [1m[36mActiveStorage::Attachment Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?)[0m  [["name", "image"], ["record_type", "ActiveStorage::VariantRecord"], ["record_id", 1], ["blob_id", 2], ["created_at", "2023-01-24 09:57:42.662688"]]
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  [1m[36mTRANSACTION (8.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/models/user.rb:20:in `get_profile_image'
+[36m  Disk Storage (0.5ms) [0m[32mUploaded file to key: vzm9v5chvdn08nxymbap5jpu3vgk (checksum: 8+IyIe80IW73XYOZgo93lA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: f13748d8-d0ce-4b9c-9791-e0918feb326a) to Async(default) with arguments: #<GlobalID:0x00007f2b53798580 @uri=#<URI::GID gid://bookers2/ActiveStorage::Blob/2>>
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [f13748d8-d0ce-4b9c-9791-e0918feb326a] Performing ActiveStorage::AnalyzeJob (Job ID: f13748d8-d0ce-4b9c-9791-e0918feb326a) from Async(default) enqueued at 2023-01-24T09:57:42Z with arguments: #<GlobalID:0x00007f2b537b5fe0 @uri=#<URI::GID gid://bookers2/ActiveStorage::Blob/2>>
+[ActiveJob] [ActiveStorage::AnalyzeJob] [f13748d8-d0ce-4b9c-9791-e0918feb326a] [36m  Disk Storage (0.1ms) [0m[34mDownloaded file from key: vzm9v5chvdn08nxymbap5jpu3vgk[0m
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."user_id" = ?[0m  [["user_id", 1]]
+  ↳ app/views/users/show.html.erb:55
+  Rendered users/show.html.erb within layouts/application (Duration: 5381.8ms | Allocations: 81522)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 5387.6ms | Allocations: 83491)
+Completed 200 OK in 5415ms (Views: 5335.2ms | ActiveRecord: 55.0ms | Allocations: 94392)
+
+
+[ActiveJob] [ActiveStorage::AnalyzeJob] [f13748d8-d0ce-4b9c-9791-e0918feb326a]   [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [f13748d8-d0ce-4b9c-9791-e0918feb326a]   [1m[36mActiveStorage::Blob Update (0.3ms)[0m  [1m[33mUPDATE "active_storage_blobs" SET "metadata" = ? WHERE "active_storage_blobs"."id" = ?[0m  [["metadata", "{\"identified\":true,\"width\":100,\"height\":100,\"analyzed\":true}"], ["id", 2]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [f13748d8-d0ce-4b9c-9791-e0918feb326a]   [1m[36mTRANSACTION (4.0ms)[0m  [1m[36mcommit transaction[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [f13748d8-d0ce-4b9c-9791-e0918feb326a] Performed ActiveStorage::AnalyzeJob (Job ID: f13748d8-d0ce-4b9c-9791-e0918feb326a) from Async(default) in 41.23ms
+Started GET "/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--528f23e39eec643a6c29ebee2ac483544637b189/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RkhKbGMybDZaVjkwYjE5c2FXMXBkRnNIYVdscGFRPT0iLCJleHAiOm51bGwsInB1ciI6InZhcmlhdGlvbiJ9fQ==--642ea08b9307974f5ac09b141830dad85fdce7f9/default-image.jpg" for 180.28.92.191 at 2023-01-24 09:57:42 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ActiveStorage::Representations::RedirectController#show as JPEG
+  Parameters: {"signed_blob_id"=>"eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--528f23e39eec643a6c29ebee2ac483544637b189", "variation_key"=>"[FILTERED]", "filename"=>"default-image"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::VariantRecord Load (0.1ms)[0m  [1m[34mSELECT "active_storage_variant_records".* FROM "active_storage_variant_records" WHERE "active_storage_variant_records"."blob_id" = ? AND "active_storage_variant_records"."variation_digest" = ? LIMIT ?[0m  [["blob_id", 1], ["variation_digest", "58nLvjR5lLpeOdoWw8+s844W40I="], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "ActiveStorage::VariantRecord"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[36m  Disk Storage (0.8ms) [0m[34mGenerated URL for file at key: vzm9v5chvdn08nxymbap5jpu3vgk (https://685f926fd70944c28ee3f7307ba6b5d4.vfs.cloud9.us-east-1.amazonaws.com/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhkbnB0T1hZMVkyaDJaRzR3T0c1NGVXMWlZWEExYW5CMU0zWm5hd1k2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVFdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW1SbFptRjFiSFF0YVcxaFoyVXVhbkJuSWpzZ1ptbHNaVzVoYldVcVBWVlVSaTA0Snlka1pXWmhkV3gwTFdsdFlXZGxMbXB3WndZN0JsUTZFV052Ym5SbGJuUmZkSGx3WlVraUQybHRZV2RsTDJwd1pXY0dPd1pVT2hGelpYSjJhV05sWDI1aGJXVTZDbXh2WTJGcyIsImV4cCI6IjIwMjMtMDEtMjRUMTA6MDI6NDIuOTgwWiIsInB1ciI6ImJsb2Jfa2V5In19--93d6f42eac0cc0e507f3e7f740ea64a9e9b72989/default-image.jpg)[0m
+Redirected to https://685f926fd70944c28ee3f7307ba6b5d4.vfs.cloud9.us-east-1.amazonaws.com/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhkbnB0T1hZMVkyaDJaRzR3T0c1NGVXMWlZWEExYW5CMU0zWm5hd1k2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVFdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW1SbFptRjFiSFF0YVcxaFoyVXVhbkJuSWpzZ1ptbHNaVzVoYldVcVBWVlVSaTA0Snlka1pXWmhkV3gwTFdsdFlXZGxMbXB3WndZN0JsUTZFV052Ym5SbGJuUmZkSGx3WlVraUQybHRZV2RsTDJwd1pXY0dPd1pVT2hGelpYSjJhV05sWDI1aGJXVTZDbXh2WTJGcyIsImV4cCI6IjIwMjMtMDEtMjRUMTA6MDI6NDIuOTgwWiIsInB1ciI6ImJsb2Jfa2V5In19--93d6f42eac0cc0e507f3e7f740ea64a9e9b72989/default-image.jpg
+Completed 302 Found in 15ms (ActiveRecord: 0.5ms | Allocations: 6664)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhkbnB0T1hZMVkyaDJaRzR3T0c1NGVXMWlZWEExYW5CMU0zWm5hd1k2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVFdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW1SbFptRjFiSFF0YVcxaFoyVXVhbkJuSWpzZ1ptbHNaVzVoYldVcVBWVlVSaTA0Snlka1pXWmhkV3gwTFdsdFlXZGxMbXB3WndZN0JsUTZFV052Ym5SbGJuUmZkSGx3WlVraUQybHRZV2RsTDJwd1pXY0dPd1pVT2hGelpYSjJhV05sWDI1aGJXVTZDbXh2WTJGcyIsImV4cCI6IjIwMjMtMDEtMjRUMTA6MDI6NDIuOTgwWiIsInB1ciI6ImJsb2Jfa2V5In19--93d6f42eac0cc0e507f3e7f740ea64a9e9b72989/default-image.jpg" for 180.28.92.191 at 2023-01-24 09:57:43 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"default-image"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 471)
+
+
+Started POST "/books" for 180.28.92.191 at 2023-01-24 09:57:53 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by BooksController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "book"=>{"title"=>"ABCD", "body"=>"oo"}, "commit"=>"Create Book"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/books_controller.rb:22:in `create'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:22:in `create'
+  [1m[36mBook Create (0.2ms)[0m  [1m[32mINSERT INTO "books" ("title", "body", "created_at", "updated_at", "user_id") VALUES (?, ?, ?, ?, ?)[0m  [["title", "ABCD"], ["body", "oo"], ["created_at", "2023-01-24 09:57:53.462926"], ["updated_at", "2023-01-24 09:57:53.462926"], ["user_id", 1]]
+  ↳ app/controllers/books_controller.rb:22:in `create'
+  [1m[36mTRANSACTION (5.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/books_controller.rb:22:in `create'
+Redirected to https://685f926fd70944c28ee3f7307ba6b5d4.vfs.cloud9.us-east-1.amazonaws.com/books/1
+Completed 302 Found in 23ms (ActiveRecord: 6.2ms | Allocations: 8750)
+
+
+Started GET "/books/1" for 180.28.92.191 at 2023-01-24 09:57:53 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by BooksController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? ORDER BY "users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:11:in `show'
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/books_controller.rb:12:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering books/show.html.erb within layouts/application
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "User"], ["name", "profile_image"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:16:in `get_profile_image'
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  [1m[36mActiveStorage::VariantRecord Load (0.1ms)[0m  [1m[34mSELECT "active_storage_variant_records".* FROM "active_storage_variant_records" WHERE "active_storage_variant_records"."blob_id" = ? AND "active_storage_variant_records"."variation_digest" = ? LIMIT ?[0m  [["blob_id", 1], ["variation_digest", "58nLvjR5lLpeOdoWw8+s844W40I="], ["LIMIT", 1]]
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  [1m[36mCACHE ActiveStorage::VariantRecord Load (0.0ms)[0m  [1m[34mSELECT "active_storage_variant_records".* FROM "active_storage_variant_records" WHERE "active_storage_variant_records"."blob_id" = ? AND "active_storage_variant_records"."variation_digest" = ? LIMIT ?[0m  [["blob_id", 1], ["variation_digest", "58nLvjR5lLpeOdoWw8+s844W40I="], ["LIMIT", 1]]
+  ↳ app/models/user.rb:20:in `get_profile_image'
+  Rendered books/show.html.erb within layouts/application (Duration: 13.4ms | Allocations: 5961)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 17.2ms | Allocations: 7847)
+Completed 200 OK in 27ms (Views: 18.5ms | ActiveRecord: 0.5ms | Allocations: 11722)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhkbnB0T1hZMVkyaDJaRzR3T0c1NGVXMWlZWEExYW5CMU0zWm5hd1k2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVFdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW1SbFptRjFiSFF0YVcxaFoyVXVhbkJuSWpzZ1ptbHNaVzVoYldVcVBWVlVSaTA0Snlka1pXWmhkV3gwTFdsdFlXZGxMbXB3WndZN0JsUTZFV052Ym5SbGJuUmZkSGx3WlVraUQybHRZV2RsTDJwd1pXY0dPd1pVT2hGelpYSjJhV05sWDI1aGJXVTZDbXh2WTJGcyIsImV4cCI6IjIwMjMtMDEtMjRUMTA6MDI6NDIuOTgwWiIsInB1ciI6ImJsb2Jfa2V5In19--93d6f42eac0cc0e507f3e7f740ea64a9e9b72989/default-image.jpg" for 180.28.92.191 at 2023-01-24 09:57:54 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"default-image"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 342)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdDVG9JYTJWNVNTSWhkbnB0T1hZMVkyaDJaRzR3T0c1NGVXMWlZWEExYW5CMU0zWm5hd1k2QmtWVU9oQmthWE53YjNOcGRHbHZia2tpVFdsdWJHbHVaVHNnWm1sc1pXNWhiV1U5SW1SbFptRjFiSFF0YVcxaFoyVXVhbkJuSWpzZ1ptbHNaVzVoYldVcVBWVlVSaTA0Snlka1pXWmhkV3gwTFdsdFlXZGxMbXB3WndZN0JsUTZFV052Ym5SbGJuUmZkSGx3WlVraUQybHRZV2RsTDJwd1pXY0dPd1pVT2hGelpYSjJhV05sWDI1aGJXVTZDbXh2WTJGcyIsImV4cCI6IjIwMjMtMDEtMjRUMTA6MDI6NDIuOTgwWiIsInB1ciI6ImJsb2Jfa2V5In19--93d6f42eac0cc0e507f3e7f740ea64a9e9b72989/default-image.jpg" for 180.28.92.191 at 2023-01-24 09:57:54 +0000
+Cannot render console from 180.28.92.191! Allowed networks: 127.0.0.0/127.255.255.255, ::1
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"default-image"}
+Completed 200 OK in 1ms (ActiveRecord: 0.0ms | Allocations: 280)
+
+
